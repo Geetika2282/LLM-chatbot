@@ -30,7 +30,7 @@ with st.sidebar:
     elif selected_model == 'Mixtral (8x7B Instruct)':
         llm = 'mistralai/mixtral-8x7b-instruct-v0.1'
     elif selected_model == 'Mistral (7B Instruct)':
-        llm = "lucataco/ollama-llama3.3-70b:29f7aa41293e897979d3e118ec8527542e5457417ae5d70e92b5f3f10033c5c3"
+        llm = "lucataco/ollama-llama3.3-70b"
 
     temperature = st.sidebar.slider('temperature', min_value=0.01, max_value=2.0, value=0.1, step=0.01)
     top_p = st.sidebar.slider('top_p', min_value=0.01, max_value=1.0, value=0.9, step=0.01)
