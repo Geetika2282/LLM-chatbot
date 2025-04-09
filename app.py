@@ -20,17 +20,19 @@ with st.sidebar:
     os.environ['REPLICATE_API_TOKEN'] = replicate_api
 
     st.subheader('Models and parameters')
-    selected_model = st.sidebar.selectbox('Choose a Llama2 model', [
-                'LLaMA 3 (8B Instruct)',
-                'Mixtral (8x7B Instruct)',
-                'Llama 3.3 (70B Instruct)'
-            ], key='selected_model')
+   selected_model = st.sidebar.selectbox('Choose a LLM model', [
+    'LLaMA 3 (8B Instruct)',
+    'Mixtral (8x7B Instruct)',
+    'LLaMA 3 (70B Instruct)'
+    ], key='selected_model')
+
     if selected_model == 'LLaMA 3 (8B Instruct)':
         llm = 'meta/meta-llama-3-8b-instruct'
     elif selected_model == 'Mixtral (8x7B Instruct)':
         llm = 'mistralai/mixtral-8x7b-instruct-v0.1'
-    elif selected_model == 'Mistral (7B Instruct)':
+    elif selected_model == 'LLaMA 3 (70B Instruct)':
         llm = "lucataco/ollama-llama3.3-70b"
+
 
     temperature = st.sidebar.slider('temperature', min_value=0.01, max_value=2.0, value=0.1, step=0.01)
     top_p = st.sidebar.slider('top_p', min_value=0.01, max_value=1.0, value=0.9, step=0.01)
@@ -79,7 +81,7 @@ if prompt := st.chat_input(disabled=not replicate_api):
 if st.session_state.messages[-1]["role"] != "assistant":
     with st.chat_message("assistant"):
         with st.spinner("Thinking..."):
-            response = generate_llama2_response(prompt)
+            response = generate_llama2_response(prompt, llm)
             placeholder = st.empty()
             full_response = ''
             for item in response:
