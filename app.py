@@ -23,8 +23,7 @@ with st.sidebar:
     selected_model = st.sidebar.selectbox('Choose a Llama2 model', [
                 'LLaMA 3 (8B Instruct)',
                 'Mixtral (8x7B Instruct)',
-                'Mistral (7B Instruct)',
-                'Command R+ (RAG-tuned)'
+                'Mistral (7B Instruct)'
             ], key='selected_model')
     if selected_model == 'LLaMA 3 (8B Instruct)':
         llm = 'meta/meta-llama-3-8b-instruct'
@@ -32,8 +31,6 @@ with st.sidebar:
         llm = 'mistralai/mixtral-8x7b-instruct-v0.1'
     elif selected_model == 'Mistral (7B Instruct)':
         llm = 'mistralai/mistral-7b-instruct-v0.1'
-    elif selected_model == 'Command R+ (RAG-tuned)':
-        llm = 'cohere/command-r-plus'
 
     temperature = st.sidebar.slider('temperature', min_value=0.01, max_value=2.0, value=0.1, step=0.01)
     top_p = st.sidebar.slider('top_p', min_value=0.01, max_value=1.0, value=0.9, step=0.01)
