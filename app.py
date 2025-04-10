@@ -60,13 +60,30 @@ def generate_llama2_response(prompt_input, llm):
             string_dialogue += "User: " + dict_message["content"] + "\n\n"
         else:
             string_dialogue += "Assistant: " + dict_message["content"] + "\n\n"
-    output = replicate.run(llm, input={
-    "prompt": f"{string_dialogue} {prompt_input} Assistant: ",
-    "temperature": temperature,
-    "top_p": top_p,
-    "max_length": max_length,
-    "repetition_penalty": 1
-})
+    if "llama" in llm.lower():
+        inputs = {
+            "prompt": f"{string_dialogue} {prompt_input} Assistant: ",
+            "temperature": temperature,
+            "top_p": top_p,
+            "system_prompt": "You are a helpful assistant."
+        }
+    elif "mixtral" in llm.lower():
+        inputs = {
+            "prompt": f"{string_dialogue} {prompt_input} Assistant: ",
+            "temperature": temperature,
+            "top_p": top_p,
+            "system_prompt": "You are a helpful assistant."
+        }
+    else:
+        inputs = {
+            "prompt": f"{string_dialogue} {prompt_input} Assistant: ",
+            "temperature": temperature,
+            "top_p": top_p,
+            "repetition_penalty": 1
+        }
+
+    output = replicate.run(llm, input=inputs)
+
 
     return output
 
