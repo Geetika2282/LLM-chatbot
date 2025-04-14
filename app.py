@@ -20,7 +20,7 @@ with st.sidebar:
     os.environ['REPLICATE_API_TOKEN'] = replicate_api
 
     st.subheader('Models and parameters')
-    selected_model = st.sidebar.selectbox('Choose a LLM model', [
+    selected_model = st.sidebar.selectbox('LLM model: ', [
     'LLaMA 3 (8B Instruct)'
     # 'Mixtral (8x7B Instruct)'
     ], key='selected_model')
