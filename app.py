@@ -25,7 +25,7 @@ with st.sidebar:
     ], key='selected_model')
 
     if selected_model == 'LLaMA 3 (8B Instruct)':
-        llm = 'meta/meta-llama-3-8b-instruct'
+        llm = 'a16z-infra/llama13b-v2-chat'
 
 
     temperature = st.sidebar.slider('temperature', min_value=0.01, max_value=2.0, value=0.1, step=0.01)
