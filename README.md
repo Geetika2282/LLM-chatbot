@@ -1,1 +1,3 @@
-# LLM-chatbot: https://promptwise.streamlit.app/
+# LLM-chatbot: 
+https://promptwise.streamlit.app/
+https://medwise-chatbot.streamlit.app/
