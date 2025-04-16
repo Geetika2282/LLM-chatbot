@@ -27,6 +27,7 @@ with st.sidebar:
     if selected_model == 'LLaMA 3 (8B Instruct)':
         llm = 'meta/meta-llama-3-8b-instruct'
 
+
     temperature = st.sidebar.slider('temperature', min_value=0.01, max_value=2.0, value=0.1, step=0.01)
     top_p = st.sidebar.slider('top_p', min_value=0.01, max_value=1.0, value=0.9, step=0.01)
     st.markdown("🤝🏻 Let's connect on [LinkedIn](https://www.linkedin.com/in/geetika-kanwar-61a33b223)!")
