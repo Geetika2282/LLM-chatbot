@@ -44,23 +44,13 @@ def clear_chat_history():
     st.session_state.messages = [{"role": "assistant", "content": "Hi! I'm your medical assistant. How can I help you today?"}]
 st.sidebar.button('Clear Chat History', on_click=clear_chat_history)
 
-# Safety check for domain
-def is_medical_query(query):
-    medical_keywords = [
-        "symptom", "medicine", "treatment", "mental", "health", "pain", "headache", "fever", "cold",
-        "flu", "diabetes", "asthma", "injury", "blood", "pressure", "stress", "anxiety", "cough",
-        "dose", "side effect", "doctor", "nurse", "burn", "cut", "wound", "first aid", "disease", "hospital",
-        "therapy", "nutrition", "exercise", "fitness", "body", "heart", "lungs", "cancer", "infection", "vaccine"
-    ]
-    return any(word.lower() in query.lower() for word in medical_keywords)
-
-# Function to generate response
+# Function for generating medical assistant response
 def generate_llama2_response(prompt_input, llm):
     medical_prompt = (
         "You are a professional medical assistant. "
-        "You only respond to queries strictly related to health, medicine, mental wellness, symptoms, and first aid. "
-        "If the question is outside of this domain, respond with: "
-        "'❌ Sorry, I can only help with medical-related queries.'"
+        "You help users by giving information related to general health, symptoms, medications, mental wellness, "
+        "and basic first aid. You do not provide diagnosis or prescribe medications. "
+        "Always suggest consulting a certified doctor for serious issues."
     )
 
     string_dialogue = medical_prompt
@@ -90,16 +80,12 @@ if prompt := st.chat_input(disabled=not replicate_api):
 if st.session_state.messages[-1]["role"] != "assistant":
     with st.chat_message("assistant"):
         with st.spinner("Thinking..."):
-            if is_medical_query(prompt):
-                response = generate_llama2_response(prompt, llm)
-                placeholder = st.empty()
-                full_response = ''
-                for item in response:
-                    full_response += item
-                    placeholder.markdown(full_response)
+            response = generate_llama2_response(prompt, llm)
+            placeholder = st.empty()
+            full_response = ''
+            for item in response:
+                full_response += item
                 placeholder.markdown(full_response)
-                st.session_state.messages.append({"role": "assistant", "content": full_response})
-            else:
-                warning_message = "❌ Sorry, I can only help with medical-related queries."
-                st.write(warning_message)
-                st.session_state.messages.append({"role": "assistant", "content": warning_message})
+            placeholder.markdown(full_response)
+    message = {"role": "assistant", "content": full_response}
+    st.session_state.messages.append(message)
