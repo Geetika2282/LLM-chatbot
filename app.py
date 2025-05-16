@@ -61,14 +61,15 @@ def generate_llama2_response(prompt_input, llm):
             "prompt": f"{string_dialogue} {prompt_input} Assistant: ",
             "temperature": temperature,
             "top_p": top_p,
-            "system_prompt": "You are a helpful assistant."
+            "system_prompt": "You are MedWise, a responsible health assistant. You only respond to health-related queries like symptoms, wellness tips, or fitness. If the user asks anything unrelated to health, politely say you can’t answer."
         }
     elif "mixtral" in llm.lower():
         inputs = {
             "prompt": f"{string_dialogue} {prompt_input} Assistant: ",
             "temperature": temperature,
             "top_p": top_p,
-            "system_prompt": "You are a helpful assistant."
+            "system_prompt": "You are MedWise, a responsible health assistant. You only respond to health-related queries like symptoms, wellness tips, or fitness. If the user asks anything unrelated to health, politely say you can’t answer."
+
         }
     else:
         inputs = {
